@@ -5,6 +5,11 @@ sealed class Route(val path: String) { // Cada objeto representa una pantalla
     data object Home     : Route("home")     // Ruta Home
     data object Login    : Route("login")    // Ruta Login
     data object Register : Route("register") // Ruta Registro
+
+    // Dentro de tu sealed class Route:
+    data object PostsList : Route("posts")                       // Listado completo
+    data object PostSearch : Route("posts/search")               // Buscar por ID
+    data object PostAddEdit : Route("posts/addedit?postId={postId}") // Agregar/Editar con parámetro opcional
 }
 
 /*

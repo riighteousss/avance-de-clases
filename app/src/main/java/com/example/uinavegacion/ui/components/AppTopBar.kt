@@ -3,6 +3,7 @@ package com.example.uinavegacion.ui.components
 import androidx.compose.material.icons.Icons // Conjunto de íconos Material
 import androidx.compose.material.icons.filled.Home // Ícono Home
 import androidx.compose.material.icons.filled.AccountCircle // Ícono Login
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu // Ícono hamburguesa
 import androidx.compose.material.icons.filled.MoreVert // Ícono 3 puntitos (overflow)
 import androidx.compose.material.icons.filled.Person // Ícono Registro
@@ -18,13 +19,20 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.* // remember / mutableStateOf
 import androidx.compose.ui.text.style.TextOverflow
 
+
+import androidx.compose.material.icons.filled.ListAlt
+import androidx.compose.material.icons.filled.Search
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable // Composable reutilizable: barra superior
 fun AppTopBar(
     onOpenDrawer: () -> Unit, // Abre el drawer (hamburguesa)
     onHome: () -> Unit,       // Navega a Home
     onLogin: () -> Unit,      // Navega a Login
-    onRegister: () -> Unit    // Navega a Registro
+    onRegister: () -> Unit,    // Navega a Registro
+    onPosts: () -> Unit,                      // Navega a listado de Posts.
+    onSearchPost: () -> Unit,                 // Navega a búsqueda por ID.
+    onAddPost: () -> Unit                     // Navega a formulario de Agregar.
 ) {
     //lo que hace es crear una variable de estado recordada que le dice a la interfaz
     // si el menú desplegable de 3 puntitos debe estar visible (true) o oculto (false).
@@ -58,6 +66,18 @@ fun AppTopBar(
             IconButton(onClick = onRegister) { // Ir a Registro
                 Icon(Icons.Filled.Person, contentDescription = "Registro") // Ícono Registro
             }
+            // Botón que lleva al listado de Posts.
+            IconButton(onClick = onPosts) {
+                Icon(Icons.Filled.ListAlt, contentDescription = "Posts")
+            }
+            // Botón que lleva a la pantalla de búsqueda por ID.
+            IconButton(onClick = onSearchPost) {
+                Icon(Icons.Filled.Search, contentDescription = "Buscar Post")
+            }
+            // Botón que lleva al formulario de agregar post.
+            IconButton(onClick = onAddPost) {
+                Icon(Icons.Filled.Add, contentDescription = "Agregar Post")
+            }
             IconButton(onClick = { showMenu = true }) { // Abre menú overflow
                 Icon(Icons.Filled.MoreVert, contentDescription = "Más") // Ícono 3 puntitos
             }
@@ -76,6 +96,14 @@ fun AppTopBar(
                 DropdownMenuItem( // Opción Registro
                     text = { Text("Registro") },
                     onClick = { showMenu = false; onRegister() }
+                )
+                DropdownMenuItem(
+                    text = { Text("Posts") },
+                    onClick = { showMenu = false; onHome() } // Si onHome ya navega a Home, cambia nav a PostsList desde NavGraph
+                )
+                DropdownMenuItem(
+                    text = { Text("Buscar Post") },
+                    onClick = { showMenu = false; onLogin() } // Reutilizas este callback para navegar a PostSearch desde NavGraph
                 )
             }
         }

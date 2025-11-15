@@ -12,6 +12,9 @@ import androidx.compose.material3.ModalDrawerSheet // Contenedor de contenido de
 import androidx.compose.runtime.Composable // Marcador composable
 import androidx.compose.ui.Modifier // Modificador
 import androidx.compose.ui.graphics.vector.ImageVector // Tipo de ícono
+import androidx.compose.material.icons.filled.ListAlt // <-- NUEVO: icono para Posts
+import androidx.compose.material.icons.filled.Search
+
 // Pequeña data class para representar cada opción del drawer
 data class DrawerItem( // Estructura de un ítem de menú lateral
     val label: String, // Texto a mostrar
@@ -47,9 +50,13 @@ fun AppDrawer(
 fun defaultDrawerItems(
     onHome: () -> Unit,   // Acción Home
     onLogin: () -> Unit,  // Acción Login
-    onRegister: () -> Unit // Acción Registro
+    onRegister: () -> Unit, // Acción Registro
+    onPosts: () -> Unit, // <-- primero . 1. NUEVO
+    onPostSearch: () -> Unit = {}     // nuevo con default
 ): List<DrawerItem> = listOf(
     DrawerItem("Home", Icons.Filled.Home, onHome),          // Ítem Home
     DrawerItem("Login", Icons.Filled.AccountCircle, onLogin),       // Ítem Login
-    DrawerItem("Registro", Icons.Filled.Person, onRegister) // Ítem Registro
+    DrawerItem("Registro", Icons.Filled.Person, onRegister), // Ítem Registro
+    DrawerItem("Posts", Icons.Filled.ListAlt, onPosts), // <-- segundo . 2 . NUEVO
+    DrawerItem("Search", Icons.Filled.Search, onPostSearch) // <-- segundo . 2 . NUEVO
 )
